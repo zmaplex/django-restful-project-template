@@ -13,9 +13,17 @@
 
 ## 🚀 快速开始
 
-初始化 Python 虚拟环境
+初始化项目
 
-```bash
+```
+# 创建项目文件夹
+
+mkdir hello-world
+cd hello-world
+
+# 克隆仓库
+git clone https://github.com/zmaplex/django-restful-project-template.git .
+
 sudo bash tools.sh init
 ```
 
