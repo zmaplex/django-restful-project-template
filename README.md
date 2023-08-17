@@ -25,6 +25,8 @@ cd hello-world
 git clone https://github.com/zmaplex/django-restful-project-template.git .
 
 sudo bash tools.sh init
+
+source venv/bin/activate
 ```
 
 新建 app
@@ -52,7 +54,6 @@ router.register(r"helloworld", helloworld.MainView)
 运行
 
 ```bash
-source venv/bin/activate
 bash run.sh
 ```
 访问 api 
