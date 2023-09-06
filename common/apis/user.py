@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from common.models.log import LoginLogModel
 
 from common.models.user import User
+from common.permission import HasAccessKeyVerifySignaturePermission
 from common.serializers.user import (
     CreateUserSerializer,
     AdminUserSerializer,
@@ -49,6 +50,23 @@ class UserView(viewsets.ModelViewSet):
         if user.is_superuser:
             return self.queryset.order_by("-id")
         return self.queryset.filter(pk=self.request.user.id).order_by("-id")
+    
+    @action(
+        methods=["get"],
+        detail=False,
+        permission_classes=[HasAccessKeyVerifySignaturePermission],
+    )
+    def ping_with_aceess_key(self, request, *args, **kwargs):
+        """
+        适用场景：提供给第三方 API 调用
+        通过 AccessKey 和 SecretAccessKey 进行签名验证，如果验证通过后把请求的数据返回
+        """
+        response = {"data": None}
+        if request.data:
+            response["data"] = request.data.dict()
+        if request.query_params:
+            response["query_params"] = request.query_params.dict()
+        return Response(response)
 
     @transaction.atomic
     @action(methods=["POST"], detail=False, permission_classes=[permissions.AllowAny])

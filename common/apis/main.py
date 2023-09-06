@@ -1,5 +1,6 @@
 from django.conf import settings
 from common.models.main import MainModel
+from common.permission import HasAccessKeyVerifySignaturePermission
 from common.serializers.main import MainSerializer
 from django_filters import rest_framework
 from rest_framework import filters, permissions
@@ -25,3 +26,5 @@ class MainView(ReadOnlyModelViewSet):
             return Response({"message": "pong"})
         else:
             return Response({"message": "Not allowed!"}, status=403)
+
+
