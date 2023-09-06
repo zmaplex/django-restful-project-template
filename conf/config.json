@@ -13,7 +13,6 @@
         "rest_framework",
         "rest_framework.authtoken",
         "django_filters",
-        "common.apps.CommonConfig",
-        "helloworld.apps.HelloworldConfig"
+        "common.apps.CommonConfig"
     ]
 }
