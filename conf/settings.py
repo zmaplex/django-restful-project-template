@@ -110,10 +110,13 @@ TEMPLATES = [
 WSGI_APPLICATION = "conf.wsgi.application"
 
 if DEBUG:
+    # Enable Debug Toolbar
+    INTERNAL_IPS = ["127.0.0.1"]
     INSTALLED_APPS += ["django_extensions", "debug_toolbar"]
     MIDDLEWARE += [
         "debug_toolbar.middleware.DebugToolbarMiddleware",
     ]
+    
 
 if not DEBUG:
     REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = (
