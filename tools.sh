@@ -1,7 +1,7 @@
 
 # init 函数
 function init() {
-    sudo apt install python3.11-venv
+    sudo apt-get install pkg-config python3-dev default-libmysqlclient-dev build-essential -y
     python3 -m venv venv
     source venv/bin/activate
     pip install -r requirements.txt
