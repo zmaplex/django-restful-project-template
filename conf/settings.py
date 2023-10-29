@@ -33,7 +33,7 @@ SECRET_KEY = "django-insecure-339&8swbk33q@i957mzknqfjwgljfgu#2y$lg952y6$w)ahddi
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-DEBUG = os.getenv("DEBUG", True)
+DEBUG = os.getenv("DJANGO_DEBUG", True) == "true"
 AUTH_USER_MODEL = "common.User"
 
 from .config.logging import LOGGING
@@ -128,7 +128,7 @@ if DEBUG:
     MIDDLEWARE += [
         "debug_toolbar.middleware.DebugToolbarMiddleware",
     ]
-    
+
 
 if not DEBUG:
     REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = (
@@ -158,6 +158,13 @@ else:
             "PASSWORD": os.getenv("DB_PASSWORD"),
             "HOST": os.getenv("DB_HOST", "127.0.0.1"),
             "PORT": os.getenv("DB_PORT", get_db_port(DB_ENGINE)),
+            "OPTIONS": {
+                "init_command": "SET default_storage_engine=INNODB;SET sql_mode='STRICT_TRANS_TABLES'",
+                "charset": "utf8mb4",
+                "use_unicode": True,
+            },
+            "CONN_MAX_AGE": int(os.getenv("DB_CONN_MAX_AGE", 60)),
+            "CONN_HEALTH_CHECKS": os.getenv("DB_CONN_HEALTH_CHECKS", True),
         }
     }
 

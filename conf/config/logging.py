@@ -1,5 +1,5 @@
 import os
-DEBUG = os.getenv("DEBUG", True)
+DEBUG = os.getenv("DJANGO_DEBUG", True) == "true"
 
 LOGGING = {
     "version": 1,
